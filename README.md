@@ -1,0 +1,2 @@
+# bioinformatik-
+Screenshots der Übungen
