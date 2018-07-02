@@ -9,27 +9,27 @@ seq_array = ["CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA",
 "TAGATCAAGTTTCAGGTGCACGTCGGTGAACC",
 "AATCCACCAGCTCCACGTGCAATGTTGGCCTA"] # Array aller Sequenzen
 
-def random_select(seq_array):
-  kmer_array = [""] * seq_count
-  for i in range(0,len(seq_array)):
-    sequence = seq_array[i]
-    rand = random.randint(0,len(sequence)-kmer_length)
-    kmer = sequence[rand:rand+kmer_length]
-    kmer_array[i] = kmer
-  return kmer_array
+def random_select(seq_array):#zufällige Auswahl der kmer aus den Sequenzen
+  kmer_array = [""] * seq_count#leeren Array mit der Länge seq_count
+  for i in range(0,len(seq_array)):#schleife von 0 bis Länge seq_array
+    sequence = seq_array[i]#seuequenz an der Stelle i des Seq_array
+    rand = random.randint(0,len(sequence)-kmer_length)#randomfunktion -->Zahl von 0 bis (Sequenz - kmer_length)
+    kmer = sequence[rand:rand+kmer_length]#kmer aus der i-ten Sequence 
+    kmer_array[i] = kmer#kmer an der stelle i in array geben
+  return kmer_array#ausgabe kmer_array
 
-def profile_creator(kmer_array):
-  profile = {"A":[1]*kmer_length,
+def profile_creator(kmer_array):#funktion definieren
+  profile = {"A":[1]*kmer_length,#profile erstellen; wie viele A an der ersten, zweiten....
       "C": [1]*kmer_length,
       "G": [1]*kmer_length,
       "T": [1]*kmer_length}
-  for j in range(0,kmer_length):
-    for kmer in kmer_array:
-      profile[kmer[j]][j] += 1/seq_count
-      profile[kmer[j]][j] = round(profile[kmer[j]][j],1)
+  for j in range(0,kmer_length):#Schleife von 0 bis kmer_length
+    for kmer in kmer_array:#für kmer in kmer_array
+      profile[kmer[j]][j] += 1/seq_count#a an erster Stelle= +1/seq_count zu "A"; mapped selber
+      profile[kmer[j]][j] = round(profile[kmer[j]][j],1)#runden wegen Fehler
   return profile
 
-def best_kmer(profile):
+def best_kmer(profile):#
   motif = []
   for sequence in seq_array:
     best_kmer = ""
